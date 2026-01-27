@@ -1,23 +1,16 @@
 [package]
 name = "xero-welcome"
-version = "2.0.0"
-authors = ["DanielcoderX <danielcoderx@keemail.me>"]
+version = "0.1.0"
 edition = "2021"
-build = "build.rs"
+description = "XeroLinux Live Welcome Application"
+authors = ["XeroLinux"]
+license = "GPL-3.0"
 
 [dependencies]
-open = "5.1.2"
-slint = "1.4"
-qttypes = "0.3.0"  # or the latest version that supports Qt6
-cpp = "0.6.0"
-cpp_build = "0.6.0"
-
-[build-dependencies]
-slint-build = "1.4"
+gtk4 = { version = "0.9", features = ["v4_12"] }
+libadwaita = { version = "0.7", features = ["v1_4"] }
 
 [profile.release]
+opt-level = "z"
 lto = true
-panic = "abort"
 strip = true
-codegen-units = 1
-opt-level = "s"

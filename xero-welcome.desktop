@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=XeroLinux Welcome
+Comment=Welcome to XeroLinux - Install and explore
+Exec=xero-welcome
+Icon=xero-welcome
+Terminal=false
+Type=Application
+Categories=System;Utility;
+Keywords=welcome;installer;xerolinux;
+StartupNotify=true
