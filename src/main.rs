@@ -234,7 +234,6 @@ fn build_ui(app: &adw::Application) {
     install_button.set_halign(gtk::Align::Center);
     install_button.connect_clicked(|_| {
         let _ = std::process::Command::new("sudo")
-            .arg("-E")
             .arg("calamares")
             .spawn();
     });
