@@ -1,7 +1,7 @@
 # Maintainer: XeroLinux <xerolinux@proton.me>
 
 pkgname=xero-welcome
-pkgver=0.1.0
+pkgver=0.1.1
 pkgrel=1
 pkgdesc="XeroLinux Live Welcome Application"
 arch=('x86_64')
