@@ -1,8 +1,8 @@
 [Desktop Entry]
 Name=XeroLinux Welcome
 Comment=Welcome to XeroLinux - Install and explore
-Exec=xero-welcome
-Icon=xero-welcome
+Exec=live-launcher
+Icon=live-launcher
 Terminal=false
 Type=Application
 Categories=System;Utility;

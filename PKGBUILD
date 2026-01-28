@@ -1,7 +1,7 @@
 # Maintainer: XeroLinux <xerolinux@proton.me>
 
-pkgname=xero-welcome
-pkgver=0.1.2
+pkgname=live-launcher
+pkgver=0.1.0
 pkgrel=1
 pkgdesc="XeroLinux Live Welcome Application"
 arch=('x86_64')
@@ -21,18 +21,18 @@ package() {
     cd "$srcdir/.."
 
     # Install binary
-    install -Dm755 "target/release/xero-welcome" "$pkgdir/usr/bin/xero-welcome"
+    install -Dm755 "target/release/live-launcher" "$pkgdir/usr/bin/live-launcher"
 
     # Install logo
-    install -Dm644 "xero.png" "$pkgdir/usr/share/xero-welcome/xero.png"
+    install -Dm644 "xero.png" "$pkgdir/usr/share/live-launcher/xero.png"
 
     # Install icons
-    install -dm755 "$pkgdir/usr/share/xero-welcome/icons"
-    install -Dm644 assets/*.svg "$pkgdir/usr/share/xero-welcome/icons/"
+    install -dm755 "$pkgdir/usr/share/live-launcher/icons"
+    install -Dm644 assets/*.svg "$pkgdir/usr/share/live-launcher/icons/"
 
     # Install autostart entry for live session
-    install -Dm644 "xero-welcome.desktop" "$pkgdir/etc/xdg/autostart/xero-welcome.desktop"
+    install -Dm644 "live-launcher.desktop" "$pkgdir/etc/xdg/autostart/live-launcher.desktop"
 
     # Install icon for desktop entry
-    install -Dm644 "xero.png" "$pkgdir/usr/share/pixmaps/xero-welcome.png"
+    install -Dm644 "xero.png" "$pkgdir/usr/share/pixmaps/live-launcher.png"
 }

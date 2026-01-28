@@ -12,9 +12,9 @@ const LOGO_PATH: &str = concat!(env!("CARGO_MANIFEST_DIR"), "/xero.png");
 const ICONS_PATH: &str = concat!(env!("CARGO_MANIFEST_DIR"), "/assets");
 
 #[cfg(not(debug_assertions))]
-const LOGO_PATH: &str = "/usr/share/xero-welcome/xero.png";
+const LOGO_PATH: &str = "/usr/share/live-launcher/xero.png";
 #[cfg(not(debug_assertions))]
-const ICONS_PATH: &str = "/usr/share/xero-welcome/icons";
+const ICONS_PATH: &str = "/usr/share/live-launcher/icons";
 
 fn main() -> glib::ExitCode {
     let app = adw::Application::builder()
