@@ -222,7 +222,7 @@ fn build_ui(app: &adw::Application) {
     warning_box.append(&warning_icon);
 
     let warning_label = gtk::Label::new(Some(
-        "Please ensure you are connected to the Internet before installing."
+        "Please make sure you are connected to the Internet before launching Installer."
     ));
     warning_label.add_css_class("warning-label");
     warning_box.append(&warning_label);
