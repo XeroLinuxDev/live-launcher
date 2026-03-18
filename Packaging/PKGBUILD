@@ -13,12 +13,12 @@ source=()
 sha256sums=()
 
 build() {
-    cd "$srcdir/.."
+    cd "$srcdir/../.."
     cargo build --release
 }
 
 package() {
-    cd "$srcdir/.."
+    cd "$srcdir/../.."
 
     # Install binary
     install -Dm755 "target/release/live-launcher" "$pkgdir/usr/bin/live-launcher"
