@@ -235,8 +235,8 @@ fn build_ui(app: &adw::Application) {
     let online_button = gtk::Button::with_label("Online Install");
     online_button.add_css_class("install-button");
     online_button.connect_clicked(|_| {
-        let _ = std::process::Command::new("sudo")
-            .arg("calamares")
+        let _ = std::process::Command::new("sh")
+            .args(["-c", "sudo cp /etc/calamares/settings-online.conf /etc/calamares/settings.conf && sudo calamares"])
             .spawn();
     });
     buttons_box.append(&online_button);
@@ -244,13 +244,24 @@ fn build_ui(app: &adw::Application) {
     let offline_button = gtk::Button::with_label("Offline Install");
     offline_button.add_css_class("install-button");
     offline_button.connect_clicked(|_| {
-        let _ = std::process::Command::new("sudo")
-            .args(["calamares", "--config", "/etc/calamares/settings-offline.conf"])
+        let _ = std::process::Command::new("sh")
+            .args(["-c", "sudo cp /etc/calamares/settings-offline.conf /etc/calamares/settings.conf && sudo calamares"])
             .spawn();
     });
     buttons_box.append(&offline_button);
 
     content.append(&buttons_box);
+
+    // Button explainers - stacked, centered, above separator
+    let online_desc = gtk::Label::new(None);
+    online_desc.set_markup("<b><span foreground='#4caf50'>Online Install:</span></b>  <span foreground='white'>Package Selector, up-to-date system. (Longer Install)</span>");
+    online_desc.set_halign(gtk::Align::Center);
+    content.append(&online_desc);
+
+    let offline_desc = gtk::Label::new(None);
+    offline_desc.set_markup("<b><span foreground='#f44336'>Offline Install:</span></b>  <span foreground='white'>No package selection, and outdated system. (Faster Install)</span>");
+    offline_desc.set_halign(gtk::Align::Center);
+    content.append(&offline_desc);
 
     // Separator
     let separator = gtk::Separator::new(gtk::Orientation::Horizontal);
@@ -308,7 +319,7 @@ fn build_ui(app: &adw::Application) {
         .application(app)
         .title("XeroLinux Live Welcome")
         .default_width(900)
-        .default_height(670)
+        .default_height(720)
         .resizable(false)
         .child(&overlay)
         .build();
