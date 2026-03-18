@@ -222,22 +222,35 @@ fn build_ui(app: &adw::Application) {
     warning_box.append(&warning_icon);
 
     let warning_label = gtk::Label::new(Some(
-        "Please make sure you are connected to the Internet before launching Installer."
+        "Make sure you are connected to the Internet for Online Install. Use Offline Install if not."
     ));
     warning_label.add_css_class("warning-label");
     warning_box.append(&warning_label);
     content.append(&warning_box);
 
-    // Install Button - centered
-    let install_button = gtk::Button::with_label("Launch Installer");
-    install_button.add_css_class("install-button");
-    install_button.set_halign(gtk::Align::Center);
-    install_button.connect_clicked(|_| {
+    // Install Buttons - centered, side by side
+    let buttons_box = gtk::Box::new(gtk::Orientation::Horizontal, 0);
+    buttons_box.set_halign(gtk::Align::Center);
+
+    let online_button = gtk::Button::with_label("Online Install");
+    online_button.add_css_class("install-button");
+    online_button.connect_clicked(|_| {
         let _ = std::process::Command::new("sudo")
             .arg("calamares")
             .spawn();
     });
-    content.append(&install_button);
+    buttons_box.append(&online_button);
+
+    let offline_button = gtk::Button::with_label("Offline Install");
+    offline_button.add_css_class("install-button");
+    offline_button.connect_clicked(|_| {
+        let _ = std::process::Command::new("sudo")
+            .args(["calamares", "--config", "/etc/calamares/settings-offline.conf"])
+            .spawn();
+    });
+    buttons_box.append(&offline_button);
+
+    content.append(&buttons_box);
 
     // Separator
     let separator = gtk::Separator::new(gtk::Orientation::Horizontal);
