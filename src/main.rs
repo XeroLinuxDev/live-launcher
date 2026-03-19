@@ -411,6 +411,14 @@ fn show_wipe_dialog(parent: Option<gtk::Window>) {
     let dropdown = gtk::DropDown::from_strings(&display_names);
     vbox.append(&dropdown);
 
+    // Result label (hidden until wipe runs)
+    let result_label = gtk::Label::new(None);
+    result_label.set_halign(gtk::Align::Center);
+    result_label.set_wrap(true);
+    result_label.set_justify(gtk::Justification::Center);
+    result_label.set_visible(false);
+    vbox.append(&result_label);
+
     let btn_box = gtk::Box::new(gtk::Orientation::Horizontal, 12);
     btn_box.set_halign(gtk::Align::Center);
     btn_box.set_margin_top(8);
@@ -435,11 +443,29 @@ fn show_wipe_dialog(parent: Option<gtk::Window>) {
         let idx = dropdown.selected() as usize;
         if idx < disks.len() {
             let disk_path = disks[idx].0.clone();
-            let _ = std::process::Command::new("sudo")
+            let status = std::process::Command::new("sudo")
                 .args(["wipefs", "-a", &disk_path])
-                .spawn();
+                .status();
+
+            result_label.set_visible(true);
+            match status {
+                Ok(s) if s.success() => {
+                    result_label.set_markup(&format!(
+                        "<span foreground='#4caf50' size='large'>\u{2705}</span>  <b><span foreground='#4caf50'>Success!</span></b>  <span foreground='white'>Disk signatures wiped on {disk_path}</span>"
+                    ));
+                    wipe_btn.set_sensitive(false);
+                    cancel_btn.set_label("Close");
+                }
+                _ => {
+                    result_label.set_markup(&format!(
+                        "<span foreground='#f44336' size='large'>\u{274c}</span>  <b><span foreground='#f44336'>Failed!</span></b>  <span foreground='white'>Could not wipe {disk_path} — check sudo/permissions.</span>"
+                    ));
+                }
+            }
+
+            // Resize dialog to fit result
+            dialog_wipe.set_default_size(520, 260);
         }
-        dialog_wipe.close();
     });
 
     dialog.present();
