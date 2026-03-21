@@ -439,6 +439,7 @@ fn show_wipe_dialog(parent: Option<gtk::Window>) {
     });
 
     let dialog_wipe = dialog.clone();
+    let wipe_btn_clone = wipe_btn.clone();
     wipe_btn.connect_clicked(move |_| {
         let idx = dropdown.selected() as usize;
         if idx < disks.len() {
@@ -453,7 +454,7 @@ fn show_wipe_dialog(parent: Option<gtk::Window>) {
                     result_label.set_markup(&format!(
                         "<span foreground='#4caf50' size='large'>\u{2705}</span>  <b><span foreground='#4caf50'>Success!</span></b>  <span foreground='white'>Disk signatures wiped on {disk_path}</span>"
                     ));
-                    wipe_btn.set_sensitive(false);
+                    wipe_btn_clone.set_sensitive(false);
                     cancel_btn.set_label("Close");
                 }
                 _ => {
